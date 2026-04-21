@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-
 const SERVICES = [
   {
     icon: "Zap",
@@ -47,8 +46,6 @@ const SERVICES = [
   },
 ];
 
-
-
 const STATS = [
   { value: "12+", label: "лет на рынке" },
   { value: "6000+", label: "заказов по Брянску и области" },
@@ -63,9 +60,111 @@ const AREAS = [
 
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [form, setForm] = useState({ name: "", phone: "", problem: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setSubmitted(false);
+    setForm({ name: "", phone: "", problem: "" });
+  };
 
   return (
     <div className="font-ibm bg-white text-gray-900 min-h-screen">
+
+      {/* MODAL */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose} />
+          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 animate-fade-in">
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <Icon name="X" size={22} />
+            </button>
+
+            {submitted ? (
+              <div className="flex flex-col items-center text-center py-6">
+                <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-4">
+                  <Icon name="CheckCircle" size={34} className="text-green-500" />
+                </div>
+                <h3 className="font-montserrat font-black text-xl text-gray-900 mb-2">Заявка принята!</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Мастер свяжется с вами в ближайшее время для уточнения деталей
+                </p>
+                <button
+                  onClick={handleClose}
+                  className="mt-6 bg-red-600 hover:bg-red-700 text-white font-montserrat font-bold px-8 py-3 rounded-xl transition-all"
+                >
+                  Закрыть
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center">
+                    <Icon name="ClipboardList" size={20} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-montserrat font-black text-xl text-gray-900 leading-tight">Оставить заявку</h3>
+                    <p className="text-gray-400 text-xs">Перезвоним в течение 15 минут</p>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Ваше имя</label>
+                    <input
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      placeholder="Иван Петров"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Телефон</label>
+                    <input
+                      required
+                      type="tel"
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      placeholder="+7 (___) ___-__-__"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Описание проблемы</label>
+                    <textarea
+                      value={form.problem}
+                      onChange={(e) => setForm({ ...form, problem: e.target.value })}
+                      placeholder="Засор в ванной, не уходит вода..."
+                      rows={3}
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors resize-none"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-montserrat font-black py-4 rounded-xl text-base transition-all hover:scale-[1.02] shadow-lg shadow-red-100 mt-1"
+                  >
+                    Отправить заявку
+                  </button>
+                  <p className="text-center text-xs text-gray-400">
+                    Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+                  </p>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* TOP BAR */}
       <div className="bg-red-600 text-white text-xs py-2 px-6">
@@ -119,7 +218,6 @@ export default function Index() {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-white">
-        {/* Red accent block */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-red-50 hidden lg:block" />
         <div className="absolute top-0 right-0 w-8 h-full bg-red-600 hidden lg:block" style={{ right: "calc(50% - 4px)" }} />
 
@@ -141,13 +239,13 @@ export default function Index() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              <a
-                href="#schedule"
+              <button
+                onClick={() => setModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-montserrat font-bold px-8 py-4 rounded-xl text-base transition-all hover:scale-105 shadow-lg shadow-red-200"
               >
                 <Icon name="ClipboardList" size={18} />
                 Оставить заявку
-              </a>
+              </button>
               <a
                 href="tel:+79532841388"
                 className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-red-300 text-gray-800 hover:text-red-600 font-montserrat font-bold px-8 py-4 rounded-xl text-base transition-all"
@@ -234,6 +332,16 @@ export default function Index() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-montserrat font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-red-100"
+            >
+              <Icon name="ClipboardList" size={18} />
+              Оставить заявку
+            </button>
+          </div>
         </div>
       </section>
 
@@ -271,8 +379,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-
 
       {/* FOOTER */}
       <footer className="bg-gray-900 text-white">
