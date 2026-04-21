@@ -145,8 +145,8 @@ export default function Index() {
                 href="#schedule"
                 className="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-montserrat font-bold px-8 py-4 rounded-xl text-base transition-all hover:scale-105 shadow-lg shadow-red-200"
               >
-                <Icon name="Calendar" size={18} />
-                Записаться онлайн
+                <Icon name="ClipboardList" size={18} />
+                Оставить заявку
               </a>
               <a
                 href="tel:+79532841388"
