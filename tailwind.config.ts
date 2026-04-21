@@ -7,6 +7,7 @@ export default {
 		"./components/**/*.{ts,tsx}",
 		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
+			"./1776799385016241490.html"
 	],
 	prefix: "",
 	theme: {
@@ -16,6 +17,10 @@ export default {
 			screens: {
 				'2xl': '1400px'
 			}
+		},
+		fontFamily: {
+			montserrat: ['Montserrat', 'sans-serif'],
+			ibm: ['IBM Plex Sans', 'sans-serif'],
 		},
 		extend: {
 			colors: {
