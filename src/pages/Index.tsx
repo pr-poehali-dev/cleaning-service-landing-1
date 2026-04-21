@@ -71,8 +71,8 @@ export default function Index() {
       <div className="bg-red-600 text-white text-xs py-2 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1">
           <span>Работаем по Брянску и Брянской области — 24 часа в сутки, 7 дней в неделю</span>
-          <a href="tel:+74832000000" className="font-montserrat font-bold tracking-wide hover:underline">
-            +7 (4832) 00-00-00
+          <a href="tel:+79532841388" className="font-montserrat font-bold tracking-wide hover:underline">
+            8 (953) 284-13-88
           </a>
         </div>
       </div>
@@ -96,11 +96,11 @@ export default function Index() {
           </div>
 
           <a
-            href="tel:+74832000000"
+            href="tel:+79532841388"
             className="hidden md:flex items-center gap-2 bg-red-600 hover:bg-red-700 transition-colors text-white font-montserrat font-bold text-sm px-4 py-2.5 rounded-lg"
           >
             <Icon name="Phone" size={15} />
-            +7 (4832) 00-00-00
+            8 (953) 284-13-88
           </a>
 
           <button className="md:hidden text-gray-500" onClick={() => setMenuOpen(!menuOpen)}>
@@ -112,7 +112,7 @@ export default function Index() {
           <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4 text-sm">
             <a href="#services" className="text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Услуги</a>
             <a href="#areas" className="text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Районы</a>
-            <a href="tel:+74832000000" className="text-red-600 font-bold">+7 (4832) 00-00-00</a>
+            <a href="tel:+79532841388" className="text-red-600 font-bold">8 (953) 284-13-88</a>
           </div>
         )}
       </nav>
@@ -149,7 +149,7 @@ export default function Index() {
                 Записаться онлайн
               </a>
               <a
-                href="tel:+74832000000"
+                href="tel:+79532841388"
                 className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-red-300 text-gray-800 hover:text-red-600 font-montserrat font-bold px-8 py-4 rounded-xl text-base transition-all"
               >
                 <Icon name="Phone" size={18} />
@@ -249,7 +249,7 @@ export default function Index() {
               <p className="text-gray-500 text-base leading-relaxed mb-6">
                 Выезжаем в любой населённый пункт региона. По Брянску — в течение 30 минут. По области — стоимость выезда рассчитывается индивидуально.
               </p>
-              <a href="tel:+74832000000" className="inline-flex items-center gap-2 text-red-600 font-montserrat font-bold hover:underline">
+              <a href="tel:+79532841388" className="inline-flex items-center gap-2 text-red-600 font-montserrat font-bold hover:underline">
                 <Icon name="Phone" size={16} />
                 Уточнить стоимость выезда
               </a>
@@ -290,7 +290,7 @@ export default function Index() {
             <div className="flex flex-col sm:flex-row items-center gap-6 text-sm text-gray-400">
               <span>Работаем 24/7</span>
               <span>Выезд 30 минут по городу</span>
-              <a href="tel:+74832000000" className="text-red-400 hover:text-red-300 font-bold">+7 (4832) 00-00-00</a>
+              <a href="tel:+79532841388" className="text-red-400 hover:text-red-300 font-bold">8 (953) 284-13-88</a>
             </div>
             <p className="text-gray-600 text-sm">© 2026 МастерПрочист</p>
           </div>
