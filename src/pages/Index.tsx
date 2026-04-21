@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
+
 const SERVICES = [
   {
     icon: "Zap",
@@ -46,15 +47,7 @@ const SERVICES = [
   },
 ];
 
-const SCHEDULE: Record<string, { slots: string[]; available: boolean[] }> = {
-  "Пн": { slots: ["09:00","11:00","13:00","15:00","17:00"], available: [false, true, true, false, true] },
-  "Вт": { slots: ["09:00","11:00","13:00","15:00","17:00"], available: [true, true, false, true, true] },
-  "Ср": { slots: ["09:00","11:00","13:00","15:00","17:00"], available: [false, false, true, true, false] },
-  "Чт": { slots: ["09:00","11:00","13:00","15:00","17:00"], available: [true, false, true, false, true] },
-  "Пт": { slots: ["09:00","11:00","13:00","15:00","17:00"], available: [true, true, true, false, false] },
-  "Сб": { slots: ["10:00","12:00","14:00","16:00"], available: [false, true, true, false] },
-  "Вс": { slots: ["10:00","12:00","14:00"], available: [true, false, true] },
-};
+
 
 const STATS = [
   { value: "12+", label: "лет на рынке" },
@@ -69,19 +62,7 @@ const AREAS = [
 ];
 
 export default function Index() {
-  const [selectedDay, setSelectedDay] = useState("Пн");
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", phone: "", comment: "" });
-  const [submitted, setSubmitted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const currentSchedule = SCHEDULE[selectedDay];
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedSlot) return;
-    setSubmitted(true);
-  };
 
   return (
     <div className="font-ibm bg-white text-gray-900 min-h-screen">
@@ -112,7 +93,6 @@ export default function Index() {
           <div className="hidden md:flex items-center gap-8 text-sm text-gray-600">
             <a href="#services" className="hover:text-red-600 transition-colors font-medium">Услуги</a>
             <a href="#areas" className="hover:text-red-600 transition-colors font-medium">Районы</a>
-            <a href="#schedule" className="hover:text-red-600 transition-colors font-medium">Запись</a>
           </div>
 
           <a
@@ -132,7 +112,6 @@ export default function Index() {
           <div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-4 text-sm">
             <a href="#services" className="text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Услуги</a>
             <a href="#areas" className="text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Районы</a>
-            <a href="#schedule" className="text-gray-700 font-medium" onClick={() => setMenuOpen(false)}>Запись</a>
             <a href="tel:+74832000000" className="text-red-600 font-bold">+7 (4832) 00-00-00</a>
           </div>
         )}
@@ -194,12 +173,12 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Right side image */}
+          {/* Right side pictogram */}
           <div className="hidden lg:flex items-center justify-center relative">
-            <div className="w-full max-w-md aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+            <div className="w-full max-w-md aspect-square rounded-3xl overflow-hidden bg-red-50 border-4 border-white shadow-2xl flex items-center justify-center">
               <img
-                src="https://cdn.poehali.dev/projects/0d269deb-f452-4d52-ad7f-8fb7020e2e13/files/5c9d4aa2-04b3-4f88-aa81-1b382ed495c9.jpg"
-                alt="Мастер за работой"
+                src="https://cdn.poehali.dev/projects/0d269deb-f452-4d52-ad7f-8fb7020e2e13/files/0ea79127-1959-474c-b1cf-ea5fc0a1bf26.jpg"
+                alt="Прочистка труб"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -293,152 +272,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SCHEDULE + BOOKING */}
-      <section id="schedule" className="bg-gray-50 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 py-20">
-          <div className="mb-12">
-            <p className="text-red-600 font-montserrat font-bold text-sm uppercase tracking-widest mb-3">Онлайн-запись</p>
-            <h2 className="font-montserrat font-black text-3xl md:text-4xl text-gray-900">
-              Выберите удобное время
-            </h2>
-            <p className="text-gray-500 mt-3 text-base">Мастер приедет строго в выбранное время</p>
-          </div>
 
-          <div className="grid lg:grid-cols-2 gap-10">
-            {/* Calendar */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-8">
-              <p className="text-gray-400 text-xs mb-4 font-montserrat font-bold uppercase tracking-wide">День недели</p>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {Object.keys(SCHEDULE).map((day) => (
-                  <button
-                    key={day}
-                    onClick={() => { setSelectedDay(day); setSelectedSlot(null); }}
-                    className={`px-4 py-2 rounded-xl font-montserrat font-bold text-sm transition-all ${
-                      selectedDay === day
-                        ? "bg-red-600 text-white shadow-md shadow-red-100"
-                        : "bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-600"
-                    }`}
-                  >
-                    {day}
-                  </button>
-                ))}
-              </div>
-
-              <p className="text-gray-400 text-xs mb-4 font-montserrat font-bold uppercase tracking-wide">Время</p>
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                {currentSchedule.slots.map((slot, i) => {
-                  const avail = currentSchedule.available[i];
-                  return (
-                    <button
-                      key={slot}
-                      disabled={!avail}
-                      onClick={() => avail && setSelectedSlot(slot)}
-                      className={`py-3 rounded-xl font-montserrat font-bold text-sm transition-all relative ${
-                        !avail
-                          ? "bg-gray-50 text-gray-300 cursor-not-allowed line-through"
-                          : selectedSlot === slot
-                          ? "bg-red-600 text-white shadow-md shadow-red-100"
-                          : "bg-gray-100 text-gray-700 hover:bg-red-50 hover:text-red-600"
-                      }`}
-                    >
-                      {slot}
-                      {avail && (
-                        <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-green-500" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="flex items-center gap-5 mt-6 text-xs text-gray-400">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-green-500" />
-                  Свободно
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-red-600" />
-                  Выбрано
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-gray-200" />
-                  Занято
-                </div>
-              </div>
-            </div>
-
-            {/* Form */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-8">
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center h-full py-8 text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mb-4">
-                    <Icon name="CheckCircle" size={32} className="text-green-500" />
-                  </div>
-                  <h3 className="font-montserrat font-black text-xl text-gray-900 mb-2">Запись принята!</h3>
-                  <p className="text-gray-500 text-sm">Мастер позвонит за 1 час до приезда для подтверждения</p>
-                  <div className="mt-4 bg-red-50 border border-red-100 rounded-xl px-5 py-3 text-red-600 text-sm font-montserrat font-bold">
-                    {selectedDay} в {selectedSlot}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <h3 className="font-montserrat font-black text-xl text-gray-900 mb-1">Ваши данные</h3>
-                  {selectedSlot ? (
-                    <p className="text-gray-500 text-sm mb-6">
-                      Запись на <span className="text-red-600 font-bold">{selectedDay}</span> в <span className="text-red-600 font-bold">{selectedSlot}</span>
-                    </p>
-                  ) : (
-                    <p className="text-gray-400 text-sm mb-6">Сначала выберите время слева</p>
-                  )}
-
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Ваше имя</label>
-                      <input
-                        required
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder="Иван Петров"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Телефон</label>
-                      <input
-                        required
-                        type="tel"
-                        value={form.phone}
-                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder="+7 (___) ___-__-__"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs text-gray-400 mb-1.5 font-montserrat font-bold uppercase tracking-wide">Адрес</label>
-                      <input
-                        value={form.comment}
-                        onChange={(e) => setForm({ ...form, comment: e.target.value })}
-                        placeholder="Брянск, ул. Ленина, д. 5"
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-300 text-sm focus:outline-none focus:border-red-400 transition-colors"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={!selectedSlot}
-                      className={`w-full py-4 rounded-xl font-montserrat font-black text-base transition-all mt-2 ${
-                        selectedSlot
-                          ? "bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-100 hover:scale-[1.02]"
-                          : "bg-gray-100 text-gray-300 cursor-not-allowed"
-                      }`}
-                    >
-                      Записаться
-                    </button>
-                  </form>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FOOTER */}
       <footer className="bg-gray-900 text-white">
