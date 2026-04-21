@@ -177,7 +177,7 @@ export default function Index() {
           <div className="hidden lg:flex items-center justify-center relative">
             <div className="w-full max-w-md aspect-square rounded-3xl overflow-hidden bg-red-50 border-4 border-white shadow-2xl flex items-center justify-center">
               <img
-                src="https://cdn.poehali.dev/projects/0d269deb-f452-4d52-ad7f-8fb7020e2e13/files/0ea79127-1959-474c-b1cf-ea5fc0a1bf26.jpg"
+                src="https://cdn.poehali.dev/projects/0d269deb-f452-4d52-ad7f-8fb7020e2e13/files/d6221cc6-4b01-4fea-96d2-f5f2673e1b7c.jpg"
                 alt="Прочистка труб"
                 className="w-full h-full object-cover"
               />
